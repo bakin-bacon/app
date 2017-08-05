@@ -6,16 +6,15 @@ import {
 } from 'react-native';
 import * as Colors from './Colors';
 
-export class BaconTimerScreen extends Component {
+export class HomeScreen extends Component {
     static navigationOptions = {
-        title: "Bakin' Bacon Timer",
-        tabBarLabel: 'Timer',
+      title: "Bakin' Bacon",
     };
 
     render() {
         return (
             <View style={styles.container}>
-                <Text style={{ textAlign: 'center', color: Colors.primary }}>Bakin Bacon Timer</Text>
+                <Text style={{ textAlign: 'center', color: Colors.primary }}>Home  Bacon Screen</Text>
             </View>
         );
     }
