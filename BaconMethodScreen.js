@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Platform, StatusBar, Text, View, Button } from 'react-native';
 import * as Colors from './Colors';
+import { BakinBaconApi } from './BakinBaconApi';
 
 export class BaconMethodScreen extends React.Component {
   static navigationOptions = {
@@ -21,6 +22,8 @@ export class BaconMethodScreen extends React.Component {
     const step6 = "6. Enjoy the best, most delicious bacon you’ve ever had.\n";
     const tipsTitle = "Tips: ";
     const tipsText = "You don’t need to cover the pan, it won’t mess up your oven. Line the pan with aluminum foil or Silpat for easier cleanup. Don’t use a baking rack to \"keep the bacon out of the grease.\" Instead, put the bacon onto a paper towel-lined plate when it's done."
+
+    var api = new BakinBaconApi();
 
     return (
       <View style={styles.masterContainer}>
