@@ -1,15 +1,54 @@
 import React from 'react';
-import { StyleSheet, Platform, StatusBar, Text, View, Button } from 'react-native';
+import { StyleSheet, Platform, StatusBar, Text, View, Image, Button } from 'react-native';
 import * as Colors from './Colors';
 import { BakinBaconApi } from './BakinBaconApi';
 
-export class BaconMethodScreen extends React.Component {
-  static navigationOptions = {
-    title: 'The Bacon Method',
-    drawerLabel: "The Bacon Method",
-  };
+const styles = StyleSheet.create({
+  masterContainer: {
+    flex: 1,
+    backgroundColor: Colors.backgroundColor,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  textContainer: {
+    flex: 1,
+    margin: 12
+  },
+  header1: {
+    fontSize: 22,
+    fontWeight: 'bold'
+  },
+  header2: {
+    fontSize: 15,
+    fontWeight: 'bold',
+    marginTop: 5
+  },
+  paragraph: {
+    fontSize: 15,
+    marginTop: 5
+  },
+  stepText: {
+    fontSize: 15,
+    marginLeft: 12,
+    marginRight: 12
+  },
+  tipsTitle: {
+    fontWeight: 'bold'
+  },
+  bacon: {
+    fontSize: 32,
+    backgroundColor: 'transparent',
+  }
+});
 
-  render() {
+export class BaconMethodScreen extends React.Component {
+    static navigationOptions = {
+        title: 'The Bacon Method',
+        drawerLabel: "The Bacon Method",
+        headerLeft: <Button style={styles.bacon} onPress={() => this.props.navigation.navigate('DrawerOpen')} title= "🥓" />
+    };
+
+    render() {
     const title = "Make Perfect Bacon Every Time";
     const subtitle = "By Dan Benjamin ";
     const subtitleTwitterText = "(tweet @danbenjamin)\n";
@@ -50,37 +89,3 @@ export class BaconMethodScreen extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  masterContainer: {
-    flex: 1,
-    backgroundColor: Colors.backgroundColor,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  textContainer: {
-    flex: 1,
-    margin: 12
-  },
-  header1: {
-    fontSize: 22,
-    fontWeight: 'bold'
-  },
-  header2: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    marginTop: 5
-  },
-  paragraph: {
-    fontSize: 15,
-    marginTop: 5
-  },
-  stepText: {
-    fontSize: 15,
-    marginLeft: 12,
-    marginRight: 12
-  },
-  tipsTitle: {
-    fontWeight: 'bold'
-  }
-});

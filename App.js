@@ -1,30 +1,38 @@
 import React from 'react';
-import { StyleSheet, Platform, StatusBar, Text, View, Component, Button } from 'react-native';
-import { StackNavigator, DrawerNavigator } from 'react-navigation';
+import { StyleSheet, Platform, StatusBar, Text, View, Component, Button, TouchableHighlight } from 'react-native';
+import { StackNavigator, DrawerNavigator, TabNavigator } from 'react-navigation';
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import * as Colors from './Colors';
-import { BaconMethodScreen } from './BaconMethodScreen';
-import { HomeScreen } from './HomeScreen';
 import { BakinBaconApi } from './BakinBaconApi';
+import { BaconMethodScreen } from './BaconMethodScreen'
+import { BaconTimerScreen } from './BaconTimerScreen'
+import { BaconProfileScreen } from './BaconProfileScreen'
+import { BaconLogScreen } from './BaconLogScreen'
+import { BaconResponseScreen } from './BaconResponseScreen'
 
-const ApplianceStackNavigator = StackNavigator({
-  BaconMethodScreen: { screen: BaconMethodScreen },
-  HomeScreen: { screen: HomeScreen }
+const MainScreenNavigator = TabNavigator(
+    {
+        BaconTimerScreen: { screen: BaconTimerScreen },
+        BaconMethodScreen: { screen: BaconMethodScreen },
+        BaconLogScreen: { screen: BaconLogScreen },
+        BaconProfileScreen: { screen: BaconProfileScreen },
+        BaconResponseScreen: { screen: BaconResponseScreen },
+    },
+    {
+        initialRouteName: 'BaconTimerScreen',
+        headerMode: 'screen'
+    }
+)
+
+const App = StackNavigator(
+    {
+        Home: { screen: MainScreenNavigator },
     },
     {
         cardStyle: {
             paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
-        }
-    },
-{
-  initialRouteName: 'BaconMethodScreen',
-  headerMode: 'screen'
-})
+        },
+    }
+);
 
-const MainDrawerNavigator = DrawerNavigator({
-  ApplianceStackNavigator: { screen: ApplianceStackNavigator }
-}, {
-  initialRouteName: 'ApplianceStackNavigator',
-  headerMode: 'screen'
-})
-
-export default MainDrawerNavigator;
+export default App;
