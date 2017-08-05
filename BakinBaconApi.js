@@ -53,4 +53,29 @@ export class BakinBaconApi
             console.log(err);
         }
     }
+
+    async getBaconBits(onGotBacon) {
+      await this.getUserId();
+
+        try {
+            fetch(BACON_URL + '?' + this.userId, {
+                method: 'GET',
+                headers: {
+                  'Accept': 'application/json',
+                  'x-api-key': API_KEY
+                }
+            })
+            .then((response) => response.json())
+            .then((responseData) => {
+              console.log(responseData);
+                if(responseData['🥓']){
+                    onGotBacon();
+                }
+            })
+            .done();
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
 }

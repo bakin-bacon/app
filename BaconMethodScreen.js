@@ -68,8 +68,8 @@ export class BaconMethodScreen extends React.Component {
     const tipsText = "You don’t need to cover the pan, it won’t mess up your oven. Line the pan with aluminum foil or Silpat for easier cleanup. Don’t use a baking rack to \"keep the bacon out of the grease.\" Instead, put the bacon onto a paper towel-lined plate when it's done."
 
     var api = new BakinBaconApi();
-
-    //api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: -1}, () => {Alert.alert('We have bacon', '🥓', [{text: 'OK'}])});
+    api.getBaconBits(() => () => {Alert.alert('We have bacon', 'GET 🥓', [{text: 'OK'}])});
+    //api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: -1}, () => {Alert.alert('We have bacon', 'POST 🥓', [{text: 'OK'}])});
 
     return (
       <View style={styles.masterContainer}>
