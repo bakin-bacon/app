@@ -1,17 +1,43 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button, AppRegistry } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
-export default class App extends React.Component {
+class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Welcome'
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Button
+        title="Go to Jane's profile"
+        onPress={() => this.props.navigation.navigate('Profile')}
+      />
     );
   }
 }
+
+class ProfileScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Profile'
+  };
+
+  render() {
+    return (
+      <Text>🥓!</Text>
+    );
+  }
+}
+
+const AppStack = StackNavigator({
+  Home: { 
+    screen: HomeScreen
+  },
+  Profile: { 
+    screen: ProfileScreen
+  },
+});
+
 
 const styles = StyleSheet.create({
   container: {
@@ -21,3 +47,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default AppStack;
