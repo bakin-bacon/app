@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { StyleSheet, Platform, StatusBar, Text, View, Button, AppRegistry } from 'react-native';
+import React from 'react';
+import { StyleSheet, Platform, StatusBar, Text, View, Button } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { BaconMethodScreen } from './BaconMethodScreen'
 
 class HomeScreen extends React.Component {
     static navigationOptions = {
@@ -11,21 +12,9 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <Button
-        title="Go to Jane's profile "
-        onPress={() => this.props.navigation.navigate('Profile')}
+        title="?"
+        onPress={() => this.props.navigation.navigate('BaconMethodScreen')}
       />
-    );
-  }
-}
-
-class ProfileScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Profile'
-  };
-
-  render() {
-    return (
-      <Text>🥓!</Text>
     );
   }
 }
@@ -35,8 +24,8 @@ const AppStack = StackNavigator(
         Home: {
             screen: HomeScreen
         },
-        Profile: {
-            screen: ProfileScreen
+        BaconMethodScreen: {
+            screen: BaconMethodScreen
         },
     },
     {
