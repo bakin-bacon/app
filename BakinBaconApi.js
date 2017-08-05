@@ -42,7 +42,7 @@ export class BakinBaconApi
             })
             .then((response) => response.json())
             .then((responseData) => {
-              console.log(responseData);
+              console.log('POST response', responseData);
                 if(responseData['🥓']){
                     onBaconing();
                 }
@@ -54,11 +54,11 @@ export class BakinBaconApi
         }
     }
 
-    async getBaconBits(onGotBacon) {
+    async getBaconBits(onBaconGot) {
       await this.getUserId();
 
         try {
-            fetch(BACON_URL + '?' + this.userId, {
+            fetch(BACON_URL + '?user_id=' + this.userId, {
                 method: 'GET',
                 headers: {
                   'Accept': 'application/json',
@@ -67,10 +67,8 @@ export class BakinBaconApi
             })
             .then((response) => response.json())
             .then((responseData) => {
-              console.log(responseData);
-                if(responseData['🥓']){
-                    onGotBacon();
-                }
+              console.log('GET response:', responseData);
+              onBaconGot(responseData);
             })
             .done();
 
