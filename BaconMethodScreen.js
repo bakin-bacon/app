@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Platform, StatusBar, Text, View, Image, Button } from 'react-native';
+import { StyleSheet, Platform, StatusBar, Text, View, Image, Button, Alert } from 'react-native';
 import * as Colors from './Colors';
 import { BakinBaconApi } from './BakinBaconApi';
 
@@ -63,6 +63,8 @@ export class BaconMethodScreen extends React.Component {
     const tipsText = "You don’t need to cover the pan, it won’t mess up your oven. Line the pan with aluminum foil or Silpat for easier cleanup. Don’t use a baking rack to \"keep the bacon out of the grease.\" Instead, put the bacon onto a paper towel-lined plate when it's done."
 
     var api = new BakinBaconApi();
+
+    //api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: -1}, () => {Alert.alert('We have bacon', '🥓', [{text: 'OK'}])});
 
     return (
       <View style={styles.masterContainer}>

@@ -1,7 +1,7 @@
 import React, { AsyncStorage, Alert } from 'react-native';
 
-var SERVER_URL = 'https://ziiwfyoc40.execute-api.us-east-2.amazonaws.com/prod';
-var BACON_URL = SERVER_URL + '/bacon-bit';
+var SERVER_URL = 'https://api.bakinbacon.net';
+var BACON_URL = SERVER_URL + '/v1/bacon-bits';
 var API_KEY = 'jaRgGN99BY6n1oMSBopLY2M4TlKLG23K172BPKDG';
 var USER_ID_STORAGE_KEY = 'user_id';
 
@@ -9,28 +9,28 @@ export class BakinBaconApi
 {
     constructor() {
       console.ignoredYellowBox = ['[SECURITY] node-uuid:'];
-      this.checkUserId();
     }
 
-    async checkUserId(){
-      this.userId = await AsyncStorage.getItem(USER_ID_STORAGE_KEY);
-      if((null === this.userId) || ("" === this.userId)) {
-          this.generateUserId();
+    async getUserId(){
+      if(!this.userId){
+        this.userId = await AsyncStorage.getItem(USER_ID_STORAGE_KEY);
+        if((null === this.userId) || ("" === this.userId)) {
+          this.userId = require('react-native-uuid').v4();
+          AsyncStorage.setItem(USER_ID_STORAGE_KEY, this.userId);
+          console.log('New userId is', this.userId);
+        }
       }
     }
 
-    async generateUserId(){
-      this.userId = require('react-native-uuid').v4();
-      await AsyncStorage.setItem(USER_ID_STORAGE_KEY, this.userId);
-    }
+    async postBaconBit(baconBit, onBaconing) {
+      await this.getUserId();
 
-    postBaconBit(baconBit, onBaconing) {
         try {
             fetch(BACON_URL, {
                 method: 'POST',
                 headers: {
+                  'Accept': 'application/json',
                   'Content-Type': 'application/json',
-                  'Authorization': 'Basic ' + session.toString('base64'),
                   'x-api-key': API_KEY
                 },
                 body: JSON.stringify({
@@ -42,6 +42,7 @@ export class BakinBaconApi
             })
             .then((response) => response.json())
             .then((responseData) => {
+              console.log(responseData);
                 if(responseData['🥓']){
                     onBaconing();
                 }
@@ -49,7 +50,7 @@ export class BakinBaconApi
             .done();
 
         } catch (err) {
-
+            console.log(err);
         }
     }
 }
