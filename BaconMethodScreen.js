@@ -1,9 +1,11 @@
 import React from 'react';
 import { StyleSheet, Platform, StatusBar, Text, View, Button } from 'react-native';
+import * as Colors from './Colors';
 
 export class BaconMethodScreen extends React.Component {
   static navigationOptions = {
-    title: 'The Bacon Method'
+    title: 'The Bacon Method',
+    drawerLabel: "The Bacon Method",
   };
 
   render() {
@@ -49,13 +51,12 @@ export class BaconMethodScreen extends React.Component {
 const styles = StyleSheet.create({
   masterContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.backgroundColor,
     alignItems: 'center',
     justifyContent: 'center'
   },
   textContainer: {
     flex: 1,
-    backgroundColor: '#fff',
     margin: 12
   },
   header1: {

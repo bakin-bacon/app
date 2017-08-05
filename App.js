@@ -1,23 +1,29 @@
 import React from 'react';
-import { StyleSheet, Platform, StatusBar, Text, View, Button } from 'react-native';
-import { StackNavigator } from 'react-navigation';
+import { StyleSheet, Platform, StatusBar, Text, View, Component, Button } from 'react-native';
+import { StackNavigator, DrawerNavigator } from 'react-navigation';
+import * as Colors from './Colors';
 import { BaconMethodScreen } from './BaconMethodScreen'
 import { HomeScreen } from './HomeScreen'
 
-const AppStack = StackNavigator(
-    {
-        BaconMethodScreen: {
-            screen: BaconMethodScreen
-        },
-        Home: {
-            screen: HomeScreen
-        },
+const ApplianceStackNavigator = StackNavigator({
+  BaconMethodScreen: { screen: BaconMethodScreen },
+  HomeScreen: { screen: HomeScreen }
     },
     {
         cardStyle: {
             paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
         }
-    }
-);
+    },
+{
+  initialRouteName: 'BaconMethodScreen',
+  headerMode: 'screen'
+})
 
-export default AppStack;
+const MainDrawerNavigator = DrawerNavigator({
+  ApplianceStackNavigator: { screen: ApplianceStackNavigator }
+}, {
+  initialRouteName: 'ApplianceStackNavigator',
+  headerMode: 'screen'
+})
+
+export default MainDrawerNavigator;
