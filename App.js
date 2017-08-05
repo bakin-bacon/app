@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, AppRegistry } from 'react-native';
+import { StyleSheet, Platform, StatusBar, Text, View, Button, AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Welcome'
-  };
+    static navigationOptions = {
+      title: "Bakin' Bacon",
+      headerLeft: <Button onPress={() => props.navigation.navigate('DrawerOpen')} title= "🥓" />
+    };
 
   render() {
     return (
       <Button
-        title="Go to Jane's profile"
+        title="Go to Jane's profile "
         onPress={() => this.props.navigation.navigate('Profile')}
       />
     );
@@ -29,14 +30,21 @@ class ProfileScreen extends React.Component {
   }
 }
 
-const AppStack = StackNavigator({
-  Home: { 
-    screen: HomeScreen
-  },
-  Profile: { 
-    screen: ProfileScreen
-  },
-});
+const AppStack = StackNavigator(
+    {
+        Home: {
+            screen: HomeScreen
+        },
+        Profile: {
+            screen: ProfileScreen
+        },
+    },
+    {
+        cardStyle: {
+          paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight
+        }
+      }
+  );
 
 
 const styles = StyleSheet.create({
