@@ -42,7 +42,7 @@ export class BaconTimerScreen extends Component {
             <View style={styles.container}>
                 <Text style={styles.timerText}>{this.timeLeft()}</Text>
                 <Image
-                    style={ styles.image }
+                    style={ styles.pig }
                     source={require('./images/pig.png')}
                 />
                 <TouchableOpacity
@@ -170,10 +170,9 @@ const styles = StyleSheet.create({
     width: 156,
     borderRadius: 64,
   },
-  image: {
+  pig: {
     height:156,
-    width: 156,
-    borderRadius: 78
+    width: 156
   },
   controlContainer: {
     height:96,

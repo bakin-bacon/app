@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import * as Colors from './Colors';
+import { BakinBaconApi } from './BakinBaconApi';
 
 export class BaconLogScreen extends Component {
     static navigationOptions = {
@@ -19,10 +20,17 @@ export class BaconLogScreen extends Component {
 
     constructor(props) {
       super(props);
-      const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      this.listDataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      this.api = new BakinBaconApi();
+      this.api.getBaconBits(this.handleBaconBits.bind(this));
       this.state = {
-          dataSource: ds.cloneWithRows(['row 1', 'row 2', 'row 3']),
+          dataSource: this.listDataSource.cloneWithRows([]),
       };
+    }
+
+    handleBaconBits(baconBits) {
+        console.log(this.listDataSource);
+        this.setState({dataSource: this.listDataSource.cloneWithRows(baconBits)});
     }
 
     render() {
@@ -31,6 +39,8 @@ export class BaconLogScreen extends Component {
                 style={styles.container}
                 dataSource={this.state.dataSource}
                 renderRow={this.renderListRow.bind(this)}
+                enableEmptySections={true}
+                withSections={false}
             />
         );
     }
@@ -38,7 +48,7 @@ export class BaconLogScreen extends Component {
     durationText(duration) {
         var minutes = Math.floor(duration / 60);
         var seconds = duration % 60;
-        return (minutes == 0 ? "0" : minutes) + ":" + (seconds == 0 ? "00" : (seconds < 10) ? "0" + seconds : seconds);
+        return "Duration: " + (minutes == 0 ? "0" : minutes) + ":" + (seconds == 0 ? "00" : (seconds < 10) ? "0" + seconds : seconds);
     }
 
     timestampText(timestamp) {
@@ -49,10 +59,10 @@ export class BaconLogScreen extends Component {
     renderListRow(baconBit){
         return (
             <View style={styles.row}>
-                {this.renderBsiImage(0)}
+                {this.renderBsiImage(baconBit.bsi)}
                 <View style={styles.column}>
-                    <Text style={styles.duration}>{this.durationText(1200)}</Text>
-                    <Text style={styles.timestamp}>{this.timestampText("20170805T121212Z")}</Text>
+                    <Text style={styles.duration}>{this.durationText(baconBit.duration)}</Text>
+                    <Text style={styles.timestamp}>{this.timestampText(baconBit.timestamp)}</Text>
                 </View>
             </View>
         )
@@ -98,15 +108,15 @@ const styles = StyleSheet.create({
   column: {
     flex: 1,
     flexDirection: 'column',
-    marginLeft: 24,
+    marginLeft: 16,
     justifyContent: 'center',
   },
   bsiPhoto: {
     height:64,
     width: 64,
     borderRadius: 32,
-    marginTop: 32,
-    marginBottom: 32,
+    marginTop: 16,
+    marginBottom: 16,
     marginLeft: 24
   },
   duration: {
