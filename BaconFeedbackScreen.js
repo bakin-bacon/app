@@ -13,7 +13,7 @@ export class BaconFeedbackScreen extends React.Component {
       headerStyle: {backgroundColor: Colors.primary },
       headerTitleStyle: { color: Colors.titleColor },
       tabBarLabel: "Feedback",
-      headerRight: <Button title='Submit' color={Colors.primaryDark} onPress={() => params.handleSubmit()} />,
+      headerRight: <Button title='Submit' color={Colors.titleColor} onPress={() => params.handleSubmit()} />,
       headerLeft: null
     };
   };
