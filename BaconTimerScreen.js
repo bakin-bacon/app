@@ -51,6 +51,7 @@ export class BaconTimerScreen extends Component {
       };
       this.spinValue = new Animated.Value(0);
       this.api = new BakinBaconApi();
+      this.api.getBaconBits(this.handleBaconBits.bind(this));
     }
 
     render() {
@@ -70,6 +71,11 @@ export class BaconTimerScreen extends Component {
                 </TouchableOpacity>
             </View>
         );
+    }
+
+    handleBaconBits(bacon_bits) {
+      let duration = this.baconOptimizer.optimize(bacon_bits);
+      this.setState({duration: duration, timeleft: duration});
     }
 
     getPigImageRotationStyle(){
