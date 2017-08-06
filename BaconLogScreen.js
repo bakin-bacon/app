@@ -15,7 +15,8 @@ export class BaconLogScreen extends Component {
         title: "My 🥓 Log",
         tabBarLabel: "🥓Log",
         headerStyle: {backgroundColor: Colors.primary },
-        headerTitleStyle: { color: Colors.titleColor }
+        headerTitleStyle: { color: Colors.titleColor },
+        headerLeft: null
     };
 
     constructor(props) {

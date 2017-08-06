@@ -25,7 +25,8 @@ export class BaconTimerScreen extends Component {
         title: "Bakin' Bacon Timer",
         tabBarLabel: 'Timer',
         headerStyle: {backgroundColor: Colors.primary },
-        headerTitleStyle: { color: Colors.titleColor }
+        headerTitleStyle: { color: Colors.titleColor },
+        headerLeft: null
     };
 
     componentWillMount() {

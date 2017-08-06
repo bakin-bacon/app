@@ -50,7 +50,8 @@ export class BaconMethodScreen extends React.Component {
               />
             ),
         headerStyle: {backgroundColor: Colors.primary },
-        headerTitleStyle: { color: Colors.titleColor }
+        headerTitleStyle: { color: Colors.titleColor },
+        headerLeft: null
     };
 
     render() {
