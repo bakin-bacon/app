@@ -76,6 +76,7 @@ export class BakinBaconApi
               },
               body: JSON.stringify({
                   device_token: notificationToken,
+                  request_id: require('react-native-uuid').v4()
               })
           })
           .then((response) => response.json())
