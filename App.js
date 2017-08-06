@@ -3,14 +3,15 @@ import { Platform, StatusBar } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import * as Colors from './Colors';
 import { BakinBaconApi } from './BakinBaconApi';
-import { BaconTimerScreen } from './BaconTimerScreen'
-import { BaconMethodScreen } from './BaconMethodScreen'
-import { BaconLogScreen } from './BaconLogScreen'
+import { BaconTimerScreen } from './BaconTimerScreen';
+import { BaconMethodScreen } from './BaconMethodScreen';
+import { BaconLogScreen } from './BaconLogScreen';
+import { BaconFeedbackScreen } from './BaconFeedbackScreen';
 
 const MainScreenNavigator = TabNavigator(
     {
         Timer: { screen: BaconTimerScreen },
-        Method: { screen: BaconMethodScreen },
+        Method: { screen: BaconFeedbackScreen },
         Log: { screen: BaconLogScreen },
     },
     {

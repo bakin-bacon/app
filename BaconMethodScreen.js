@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Platform, StatusBar, Text, View, Image, Button, Alert } from 'react-native';
+import { StyleSheet, StatusBar, Text, View, Image, Button, Alert } from 'react-native';
 import * as Colors from './Colors';
 import { BakinBaconApi } from './BakinBaconApi';
 
@@ -51,11 +51,7 @@ export class BaconMethodScreen extends React.Component {
                 style={[styles.icon, {tintColor: tintColor}]}
               />
             ),
-    };
-
-    onBaconGot(baconBits){
-      console.log('we have bacon');
-    }
+    };    
 
     render() {
       const title = "Make Perfect Bacon Every Time";
@@ -71,9 +67,8 @@ export class BaconMethodScreen extends React.Component {
       const tipsTitle = "Tips: ";
       const tipsText = "You don’t need to cover the pan, it won’t mess up your oven. Line the pan with aluminum foil or Silpat for easier cleanup. Don’t use a baking rack to \"keep the bacon out of the grease.\" Instead, put the bacon onto a paper towel-lined plate when it's done."
 
-      var api = new BakinBaconApi();
-
-      api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: -1}, () => api.getBaconBits(this.onBaconGot));
+      //var api = new BakinBaconApi();
+      //api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: -1}, () => api.getBaconBits(this.onBaconGot));
 
       return (
         <View style={styles.masterContainer}>
@@ -99,6 +94,4 @@ export class BaconMethodScreen extends React.Component {
         </View>
       );
   }
-
-
 }
