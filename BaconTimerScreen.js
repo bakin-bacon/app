@@ -56,7 +56,7 @@ export class BaconTimerScreen extends Component {
             <View style={styles.container}>
                 <Text style={styles.timerText}>{this.timeLeft()}</Text>
                 <Image
-                    style={ styles.pig }
+                    style={ this.getPigImageRotationStyle() }
                     source={require('./images/pig.png')}
                 />
                 <TouchableOpacity
@@ -68,6 +68,16 @@ export class BaconTimerScreen extends Component {
             </View>
         );
     }
+
+    getPigImageRotationStyle(){
+        var rotation = this.degreeRotation();
+        console.log(rotation);
+        return {
+            height:156,
+            width: 156,
+            transform: [{ rotate: rotation}]
+        };
+     }
 
     alertUser() {
         Vibration.vibrate([0, 200, 400, 600, 0, 100, 300, 500, 0, 200, 400, 500, 0, 100, 300, 500, 0, 200, 400, 600]);
@@ -114,6 +124,11 @@ export class BaconTimerScreen extends Component {
         var minutes = Math.floor(this.state.timeleft / 60);
         var seconds = this.state.timeleft % 60;
         return (minutes == 0 ? "0" : minutes) + ":" + (seconds == 0 ? "00" : (seconds < 10) ? "0" + seconds : seconds);
+    }
+
+    degreeRotation() {
+        var rotation = Math.floor(180 * ((StateVars.duration - this.state.timeleft) / StateVars.duration));
+        return rotation + "deg";
     }
 
     controlImage() {
