@@ -38,7 +38,7 @@ export class BaconTimerScreen extends Component {
                     style={ styles.controlContainer }
                     onPress={onPressControl}
                     >
-                        {this.controlImage()}
+                    {this.controlImage()}
                 </TouchableOpacity>
             </View>
         );
@@ -74,7 +74,7 @@ export class BaconTimerScreen extends Component {
     timeLeft() {
         var minutes = Math.floor(this.state.duration / 60);
         var seconds = this.state.duration % 60;
-        return (minutes == 0 ? "0" : minutes) + ":" + (seconds == 0 ? "00" : seconds);
+        return (minutes == 0 ? "0" : minutes) + ":" + (seconds == 0 ? "00" : (seconds < 10) ? "0" + seconds : seconds);
     }
 
     controlImage() {
