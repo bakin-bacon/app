@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Dimensions, StatusBar, Text, View, Image, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Dimensions, StatusBar, Text, ScrollView, View, Image, Button, TouchableOpacity } from 'react-native';
 import * as Colors from './Colors';
 import { BakinBaconApi } from './BakinBaconApi';
 
@@ -9,6 +9,8 @@ export class BaconFeedbackScreen extends React.Component {
     return {
       title: 'How was your bacon?',
       tabBarLabel: "Feedback",
+      headerStyle: {backgroundColor: Colors.primary },
+      headerTitleStyle: { color: Colors.titleColor },
       headerRight: <Button title='Submit' color={Colors.primaryDark} onPress={() => params.handleSubmit()} />
     };
   };
@@ -71,7 +73,7 @@ export class BaconFeedbackScreen extends React.Component {
     var undercookedColor = this.state.feedback == 'floppy' ? Colors.primaryDark : 'white';
 
     return(
-      <View style={styles.masterContainer}>
+      <ScrollView style={styles.masterContainer}>
         <View style={styles.container}>
           <TouchableOpacity onPress={onPressedCrispy}>
             <Image
@@ -94,7 +96,7 @@ export class BaconFeedbackScreen extends React.Component {
           </TouchableOpacity>
           <Text style={styles.baconLabel}>Too Floppy</Text>
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
