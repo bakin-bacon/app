@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   Easing,
   Animated,
-  Image
+  Image,
+  Vibration,
+  Alert
 } from 'react-native';
 import * as Colors from './Colors';
 
@@ -19,7 +21,7 @@ export class BaconTimerScreen extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        duration: 1200,
+        duration: 10,
         timer: null,
         running: false
       };
@@ -44,6 +46,19 @@ export class BaconTimerScreen extends Component {
         );
     }
 
+    alertUser() {
+        Vibration.vibrate([0, 200, 400, 600, 0, 100, 300, 500, 0, 200, 400, 500, 0, 100, 300, 500, 0, 200, 400, 600]);
+        Alert.alert('Finished',
+            'Go eat your perfect bacon.',
+            [
+                {text: 'OK', onPress: () => {
+                    Vibration.cancel();
+                }}
+            ],
+            { cancelable: false }
+        )
+    }
+
     setTimer() {
         if( this.state.running) {
             this._interval = setInterval(() => {
@@ -52,8 +67,8 @@ export class BaconTimerScreen extends Component {
                 }
                 else
                 {
-                    // NOTIFY USER DONE.
-
+                    clearInterval(this._interval);
+                    this.alertUser();
                 }
             }, 1000);
         } else {
@@ -95,12 +110,12 @@ export class BaconTimerScreen extends Component {
     }
 }
 
-// // First set up animation
+// First set up animation
 // Animated.timing(
 //     this.state.spinValue,
 //   {
 //     toValue: 1,
-//     duration: 1200,
+//     duration: this.state.duration,
 //     easing: Easing.linear
 //   }
 // ).start()
