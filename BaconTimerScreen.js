@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import * as Colors from './Colors';
 import { BakinBaconApi } from './BakinBaconApi';
+import { BaconOptimizer } from './BaconOptimizer';
 import { PushService } from './push/PushService';
 import { Notifications } from 'expo';
 
@@ -42,6 +43,7 @@ export class BaconTimerScreen extends Component {
 
     constructor(props) {
       super(props);
+      this.baconOptimizer = new BaconOptimizer();
       this.state = {
         timeleft: StateVars.duration,
         timer: null,
