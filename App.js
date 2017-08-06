@@ -2,7 +2,6 @@ import React from 'react';
 import { Platform, StatusBar } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
 import * as Colors from './Colors';
-import { BakinBaconApi } from './BakinBaconApi';
 import { BaconTimerScreen } from './BaconTimerScreen';
 import { BaconMethodScreen } from './BaconMethodScreen';
 import { BaconLogScreen } from './BaconLogScreen';

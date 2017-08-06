@@ -14,6 +14,8 @@ import {
 import * as Colors from './Colors';
 import { BakinBaconApi } from './BakinBaconApi';
 
+const defaultDuration = 10;
+
 export class BaconTimerScreen extends Component {
     static navigationOptions = {
         title: "Bakin' Bacon Timer",
@@ -24,7 +26,7 @@ export class BaconTimerScreen extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        duration: 10,
+        duration: defaultDuration,
         timer: null,
         running: false
       };
@@ -79,7 +81,7 @@ export class BaconTimerScreen extends Component {
             }, 1000);
         } else {
             clearInterval(this._interval);
-            this.setState({duration: 1200});
+            this.setState({duration: defaultDuration});
         }
     }
 
