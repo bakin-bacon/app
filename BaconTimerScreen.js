@@ -12,6 +12,7 @@ import {
   Alert
 } from 'react-native';
 import * as Colors from './Colors';
+import {PushService} from './push/PushService';
 
 export class BaconTimerScreen extends Component {
     static navigationOptions = {
@@ -25,6 +26,7 @@ export class BaconTimerScreen extends Component {
         timer: null,
         running: false
       };
+      PushService.Register();
     }
 
     render() {
