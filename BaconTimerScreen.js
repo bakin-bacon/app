@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import * as Colors from './Colors';
 import { BakinBaconApi } from './BakinBaconApi';
+import { PushService } from './push/PushService';
 
 const defaultDuration = 10;
 
@@ -32,6 +33,7 @@ export class BaconTimerScreen extends Component {
       };
       this.spinValue = new Animated.Value(0);
       this.api = new BakinBaconApi();
+      PushService.Register();
     }
 
     render() {
