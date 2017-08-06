@@ -35,7 +35,6 @@ export class PushService {
 
   static async PreparePushToken(){
     if (!await PushService.Token()){
-      console.log("shouldn't be here!!!!@@@@@@@@@@@@@@@@");
       AsyncStorage.setItem(
         EXPO_PUSH_TOKEN_STORAGE_KEY,
         await Notifications.getExpoPushTokenAsync());

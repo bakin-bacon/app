@@ -5,12 +5,13 @@ import * as Colors from './Colors';
 import { BaconTimerScreen } from './BaconTimerScreen';
 import { BaconMethodScreen } from './BaconMethodScreen';
 import { BaconLogScreen } from './BaconLogScreen';
+import { BaconFeedbackScreen } from './BaconFeedbackScreen';
 
 const MainScreenNavigator = TabNavigator(
     {
         Timer: { screen: BaconTimerScreen },
         Method: { screen: BaconMethodScreen },
-        Log: { screen: BaconLogScreen },
+        Log: { screen: BaconLogScreen }
     },
     {
         initialRouteName: 'Timer',
@@ -26,6 +27,7 @@ const MainScreenNavigator = TabNavigator(
 const App = StackNavigator(
     {
         Home: { screen: MainScreenNavigator },
+        Feedback: { screen: BaconFeedbackScreen }
     },
     {
         cardStyle: {

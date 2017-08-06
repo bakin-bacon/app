@@ -14,6 +14,7 @@ import {
 import * as Colors from './Colors';
 import { BakinBaconApi } from './BakinBaconApi';
 import { PushService } from './push/PushService';
+import { Notifications } from 'expo';
 
 const defaultDuration = 10;
 
@@ -26,6 +27,18 @@ export class BaconTimerScreen extends Component {
         headerStyle: {backgroundColor: Colors.primary },
         headerTitleStyle: { color: Colors.titleColor }
     };
+
+    componentWillMount() {
+      PushService.Register();
+
+      // Handle notifications that are received or selected while the app
+      // is open. If the app was closed and then opened by tapping the
+      // notification (rather than just tapping the app icon to open it),
+      // this function will fire on the next tick after the app starts
+      // with the notification data.
+      this._notificationSubscription = Notifications.addListener(() => this.props.navigation.navigate('Feedback'));
+    }
+
     constructor(props) {
       super(props);
       this.state = {
@@ -35,7 +48,6 @@ export class BaconTimerScreen extends Component {
       };
       this.spinValue = new Animated.Value(0);
       this.api = new BakinBaconApi();
-      PushService.Register();
     }
 
     render() {

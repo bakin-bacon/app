@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, Dimensions, StatusBar, Text, ScrollView, View, Image, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Dimensions, StatusBar, Text, ScrollView, View, Image, Button, TouchableOpacity, Alert } from 'react-native';
 import * as Colors from './Colors';
 import { BakinBaconApi } from './BakinBaconApi';
+import { BaconTimerScreen } from './BaconTimerScreen';
+import App from './App';
 
 export class BaconFeedbackScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -9,9 +11,8 @@ export class BaconFeedbackScreen extends React.Component {
     return {
       title: 'How was your bacon?',
       tabBarLabel: "Feedback",
-      headerStyle: {backgroundColor: Colors.primary },
-      headerTitleStyle: { color: Colors.titleColor },
-      headerRight: <Button title='Submit' color={Colors.primaryDark} onPress={() => params.handleSubmit()} />
+      headerRight: <Button title='Submit' color={Colors.primaryDark} onPress={() => params.handleSubmit()} />,
+      headerLeft: null
     };
   };
 
@@ -24,11 +25,20 @@ export class BaconFeedbackScreen extends React.Component {
   }
 
   submitFeedback() {
+    const alertMessage = "We'll send you a smarter time for your next perfect bacon attempt.";
+
     if(this.bsi != null){
-      console.log(this.bsi, 'feedback submitted')
-      this.api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: this.bsi}, () => {});
+      Alert.alert(
+        'Thanks!',
+        alertMessage,
+        [
+          {text: 'OK', onPress: () => this.props.navigation.navigate('Log')},
+        ],
+        { cancelable: false }
+      );
+      this.setState({feedback: null});
+      this.api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: this.bsi}, () => console.log('Feedback post succeeded'));
     }
-    //TODO: Navigate back to...?
   }
 
   componentDidMount() {
@@ -58,11 +68,11 @@ export class BaconFeedbackScreen extends React.Component {
       borderRadius: imageDiameter / 2,
       borderColor: borderColor,
       borderWidth: 3,
-      marginTop: 40 };
+      marginTop: 35 };
     }
 
   render(){
-    var imageDiameter = Dimensions.get('window').height / 6;
+    var imageDiameter = Dimensions.get('window').height / 6.5;
 
     const onPressedCrispy = this.pressedTooCrispy.bind(this);
     const onPressedPerfect = this.pressedPerfect.bind(this);
