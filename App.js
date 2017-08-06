@@ -10,8 +10,8 @@ import { BaconFeedbackScreen } from './BaconFeedbackScreen';
 const MainScreenNavigator = TabNavigator(
     {
         Timer: { screen: BaconTimerScreen },
+        Log: { screen: BaconLogScreen },
         Method: { screen: BaconMethodScreen },
-        Log: { screen: BaconLogScreen }
     },
     {
         initialRouteName: 'Timer',
