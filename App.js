@@ -22,7 +22,6 @@ const MainScreenNavigator = TabNavigator(
             style: {
                 backgroundColor: Colors.secondary
             }
-
         }
     }
 )

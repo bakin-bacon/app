@@ -19,7 +19,7 @@ export class BaconFeedbackScreen extends React.Component {
     this.state = {
       feedback: null
     };
-    //this.api.getBaconBits(() => {});
+    this.api.postBaconMade(() => {console.log('we made bacon!')});
   }
 
   submitFeedback() {
@@ -28,7 +28,7 @@ export class BaconFeedbackScreen extends React.Component {
       this.api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: this.bsi}, () => {});
     }
 
-    //TODO: Make modal and close window
+    //TODO: Navigate back to...?
   }
 
   componentDidMount() {
@@ -68,9 +68,9 @@ export class BaconFeedbackScreen extends React.Component {
     const onPressedPerfect = this.pressedPerfect.bind(this);
     const onPressedFloppy = this.pressedTooFloppy.bind(this);
 
-    var crispyColor = this.state.feedback == 'crispy' ? Colors.primaryDark : Colors.secondary;
-    var perfectColor = this.state.feedback == 'perfect' ? Colors.primaryDark : Colors.secondary;
-    var undercookedColor = this.state.feedback == 'floppy' ? Colors.primaryDark : Colors.secondary;
+    var crispyColor = this.state.feedback == 'crispy' ? Colors.primaryDark : 'white';
+    var perfectColor = this.state.feedback == 'perfect' ? Colors.primaryDark : 'white';
+    var undercookedColor = this.state.feedback == 'floppy' ? Colors.primaryDark : 'white';
 
     return(
       <View style={styles.masterContainer}>
