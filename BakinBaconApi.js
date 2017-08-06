@@ -6,6 +6,8 @@ var BACON_URL = SERVER_URL + '/v1/bacon-bits';
 var API_KEY = 'jaRgGN99BY6n1oMSBopLY2M4TlKLG23K172BPKDG';
 var USER_ID_STORAGE_KEY = 'user_id';
 
+var timerScreen = require('./BaconTimerScreen');
+
 export class BakinBaconApi
 {
     constructor() {
@@ -37,7 +39,7 @@ export class BakinBaconApi
                 },
                 body: JSON.stringify({
                     user_id: this.userId,
-                    duration: baconBit.duration,
+                    duration: timerScreen.StateVars.duration,
                     timestamp: baconBit.timestamp,
                     bsi: baconBit.bsi
                 })

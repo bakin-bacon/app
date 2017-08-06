@@ -5,13 +5,11 @@ import * as Colors from './Colors';
 import { BaconTimerScreen } from './BaconTimerScreen';
 import { BaconMethodScreen } from './BaconMethodScreen';
 import { BaconLogScreen } from './BaconLogScreen';
-import { BaconFeedbackScreen } from './BaconFeedbackScreen';
 
 const MainScreenNavigator = TabNavigator(
     {
         Timer: { screen: BaconTimerScreen },
         Method: { screen: BaconMethodScreen },
-        Feedback: { screen: BaconFeedbackScreen },
         Log: { screen: BaconLogScreen },
     },
     {

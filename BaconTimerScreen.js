@@ -17,6 +17,8 @@ import { PushService } from './push/PushService';
 
 const defaultDuration = 10;
 
+var StateVars = { duration: defaultDuration };
+
 export class BaconTimerScreen extends Component {
     static navigationOptions = {
         title: "Bakin' Bacon Timer",
@@ -27,7 +29,7 @@ export class BaconTimerScreen extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        duration: defaultDuration,
+        timeleft: StateVars.duration,
         timer: null,
         running: false
       };
@@ -71,8 +73,8 @@ export class BaconTimerScreen extends Component {
     setTimer() {
         if( this.state.running) {
             this._interval = setInterval(() => {
-                if(this.state.duration > 0 ) {
-                    this.setState({duration: this.state.duration - 1});
+                if(this.state.timeleft > 0 ) {
+                    this.setState({timeleft: this.state.timeleft - 1});
                 }
                 else
                 {
@@ -83,7 +85,7 @@ export class BaconTimerScreen extends Component {
             }, 1000);
         } else {
             clearInterval(this._interval);
-            this.setState({duration: defaultDuration});
+            this.setState({timeleft: StateVars.duration});
         }
     }
 
@@ -97,8 +99,8 @@ export class BaconTimerScreen extends Component {
     }
 
     timeLeft() {
-        var minutes = Math.floor(this.state.duration / 60);
-        var seconds = this.state.duration % 60;
+        var minutes = Math.floor(this.state.timeleft / 60);
+        var seconds = this.state.timeleft % 60;
         return (minutes == 0 ? "0" : minutes) + ":" + (seconds == 0 ? "00" : (seconds < 10) ? "0" + seconds : seconds);
     }
 
@@ -119,33 +121,6 @@ export class BaconTimerScreen extends Component {
             )
     }
 }
-
-// First set up animation
-// Animated.timing(
-//     this.state.spinValue,
-//   {
-//     toValue: 1,
-//     duration: 1200,
-//     easing: Easing.linear,
-//     useNativeDriver: true
-//   }
-// ).start();
-
-// First set up animation
-// Animated.timing(
-//     this.state.spinValue,
-//   {
-//     toValue: 1,
-//     duration: this.state.duration,
-//     easing: Easing.linear
-//   }
-// ).start()
-//
-// // Second interpolate beginning and end values (in this case 0 and 1)
-// const spin = this.state.spinValue.interpolate({
-//   inputRange: [0, 1],
-//   outputRange: ['0deg', '180deg']
-// })
 
 const styles = StyleSheet.create({
   container: {
@@ -186,3 +161,5 @@ const styles = StyleSheet.create({
     borderRadius: 48
   },
 });
+
+exports.StateVars = StateVars;
