@@ -19,7 +19,6 @@ export class BaconFeedbackScreen extends React.Component {
     this.state = {
       feedback: null
     };
-    this.api.postBaconMade(() => {console.log('we made bacon!')});
   }
 
   submitFeedback() {
@@ -27,7 +26,6 @@ export class BaconFeedbackScreen extends React.Component {
       console.log(this.bsi, 'feedback submitted')
       this.api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: this.bsi}, () => {});
     }
-
     //TODO: Navigate back to...?
   }
 

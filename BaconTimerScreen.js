@@ -12,6 +12,7 @@ import {
   Alert
 } from 'react-native';
 import * as Colors from './Colors';
+import { BakinBaconApi } from './BakinBaconApi';
 
 export class BaconTimerScreen extends Component {
     static navigationOptions = {
@@ -28,6 +29,7 @@ export class BaconTimerScreen extends Component {
         running: false
       };
       this.spinValue = new Animated.Value(0);
+      this.api = new BakinBaconApi();
     }
 
     render() {
@@ -72,6 +74,7 @@ export class BaconTimerScreen extends Component {
                 {
                     clearInterval(this._interval);
                     this.alertUser();
+                    this.api.postBaconMade(() => {console.log('we made bacon!')});
                 }
             }, 1000);
         } else {

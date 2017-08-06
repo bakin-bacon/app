@@ -65,7 +65,7 @@ export class BakinBaconApi
       }
 
       try {
-          fetch(SERVER_URL + '/bacon-imminent', {
+          fetch(SERVER_URL + '/v1/bacon-imminent', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
