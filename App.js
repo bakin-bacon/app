@@ -11,12 +11,19 @@ import { BaconFeedbackScreen } from './BaconFeedbackScreen';
 const MainScreenNavigator = TabNavigator(
     {
         Timer: { screen: BaconTimerScreen },
-        Method: { screen: BaconFeedbackScreen },
+        Method: { screen: BaconMethodScreen },
+        Feedback: { screen: BaconFeedbackScreen },
         Log: { screen: BaconLogScreen },
     },
     {
         initialRouteName: 'Timer',
-        headerMode: 'screen'
+        headerMode: 'screen',
+        tabBarOptions: {
+            style: {
+                backgroundColor: Colors.secondary
+            }
+
+        }
     }
 )
 

@@ -9,7 +9,9 @@ import * as Colors from './Colors';
 export class BaconLogScreen extends Component {
     static navigationOptions = {
         title: "Bakin' Bacon Log",
-        tabBarLabel: 'Log',
+        tabBarLabel: "'B'Log",
+        headerStyle: {backgroundColor: Colors.primary },
+        headerTitleStyle: { color: Colors.titleColor }
     };
 
     render() {

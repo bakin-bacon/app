@@ -1,14 +1,12 @@
 import React from 'react';
-import { StyleSheet, StatusBar, Text, View, Image, Button, Alert } from 'react-native';
+import { StyleSheet, StatusBar, Text, View, ScrollView, Image, Button, Alert } from 'react-native';
 import * as Colors from './Colors';
 import { BakinBaconApi } from './BakinBaconApi';
 
 const styles = StyleSheet.create({
   masterContainer: {
     flex: 1,
-    backgroundColor: Colors.backgroundColor,
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: Colors.backgroundColor
   },
   textContainer: {
     flex: 1,
@@ -51,7 +49,9 @@ export class BaconMethodScreen extends React.Component {
                 style={[styles.icon, {tintColor: tintColor}]}
               />
             ),
-    };    
+        headerStyle: {backgroundColor: Colors.primary },
+        headerTitleStyle: { color: Colors.titleColor }
+    };
 
     render() {
       const title = "Make Perfect Bacon Every Time";
@@ -71,7 +71,7 @@ export class BaconMethodScreen extends React.Component {
       //api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: -1}, () => api.getBaconBits(this.onBaconGot));
 
       return (
-        <View style={styles.masterContainer}>
+        <ScrollView style={styles.masterContainer}>
           <View style={styles.textContainer}>
             <Text style={styles.header1}>{title}</Text>
             <Text>
@@ -91,7 +91,7 @@ export class BaconMethodScreen extends React.Component {
               <Text>{tipsText}</Text>
             </Text>
           </View>
-        </View>
+        </ScrollView>
       );
   }
 }

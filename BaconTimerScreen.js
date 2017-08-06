@@ -12,12 +12,13 @@ import {
   Alert
 } from 'react-native';
 import * as Colors from './Colors';
-import {PushService} from './push/PushService';
 
 export class BaconTimerScreen extends Component {
     static navigationOptions = {
         title: "Bakin' Bacon Timer",
         tabBarLabel: 'Timer',
+        headerStyle: {backgroundColor: Colors.primary },
+        headerTitleStyle: { color: Colors.titleColor }
     };
     constructor(props) {
       super(props);
@@ -26,7 +27,7 @@ export class BaconTimerScreen extends Component {
         timer: null,
         running: false
       };
-      PushService.Register();
+      this.spinValue = new Animated.Value(0);
     }
 
     render() {
@@ -99,18 +100,29 @@ export class BaconTimerScreen extends Component {
             return (
                     <Image
                         style={ styles.controlImage }
-                        source={require('./images/reset.png')}
+                        source={require('./images/bacon_reset.png')}
                     />
                 )
         }
         return (
             <Image
                     style={ styles.controlImage }
-                    source={require('./images/play.png')}
+                    source={require('./images/bacon_play.png')}
                 />
             )
     }
 }
+
+// First set up animation
+// Animated.timing(
+//     this.state.spinValue,
+//   {
+//     toValue: 1,
+//     duration: 1200,
+//     easing: Easing.linear,
+//     useNativeDriver: true
+//   }
+// ).start();
 
 // First set up animation
 // Animated.timing(

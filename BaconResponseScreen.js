@@ -8,7 +8,9 @@ import * as Colors from './Colors';
 
 export class BaconResponseScreen extends Component {
     static navigationOptions = {
-      title: "Bacon Response",
+        title: "Bacon Response",
+        headerStyle: {backgroundColor: Colors.primary },
+        headerTitleStyle: { color: Colors.titleColor }
     };
 
     render() {
