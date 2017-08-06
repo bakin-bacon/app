@@ -166,17 +166,17 @@ const styles = StyleSheet.create({
   image: {
     height:156,
     width: 156,
-    borderRadius: 64
+    borderRadius: 78
   },
   controlContainer: {
     height:96,
     width: 96,
-    borderRadius: 32,
+    borderRadius: 48,
     marginTop: 40,
   },
   controlImage: {
     height:96,
     width: 96,
-    borderRadius: 32
+    borderRadius: 48
   },
 });

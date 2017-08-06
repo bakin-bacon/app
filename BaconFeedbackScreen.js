@@ -8,6 +8,7 @@ export class BaconFeedbackScreen extends React.Component {
     const { params = {} } = navigation.state;
     return {
       title: 'How was your bacon?',
+      tabBarLabel: "Feedback",
       headerRight: <Button title='Submit' color={Colors.primaryDark} onPress={() => params.handleSubmit()} />
     };
   };
