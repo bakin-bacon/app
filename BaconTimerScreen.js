@@ -82,7 +82,6 @@ export class BaconTimerScreen extends Component {
 
     getPigImageRotationStyle(){
         var rotation = this.degreeRotation();
-        console.log(rotation);
         return {
             height:156,
             width: 156,

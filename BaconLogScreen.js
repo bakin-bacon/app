@@ -30,7 +30,6 @@ export class BaconLogScreen extends Component {
     }
 
     handleBaconBits(baconBits) {
-        console.log(this.listDataSource);
         this.setState({dataSource: this.listDataSource.cloneWithRows(baconBits.reverse())});
     }
 

@@ -13,7 +13,9 @@ export class BaconFeedbackScreen extends React.Component {
       headerStyle: {backgroundColor: Colors.primary },
       headerTitleStyle: { color: Colors.titleColor },
       tabBarLabel: "Feedback",
-      headerRight: <Button title='Submit' color={Colors.titleColor} onPress={() => params.handleSubmit()} />,
+      headerRight: <TouchableOpacity onPress={() => params.handleSubmit()}>
+                       <Text style={styles.rightButton}>Submit</Text>
+                   </TouchableOpacity>,
       headerLeft: null
     };
   };
@@ -39,7 +41,7 @@ export class BaconFeedbackScreen extends React.Component {
         { cancelable: false }
       );
       this.setState({feedback: null});
-      this.api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: this.bsi}, () => console.log('Feedback post succeeded'));
+      this.api.postBaconBit({timestamp: new Date().toISOString(), bsi: this.bsi}, () => console.log('Feedback post succeeded'));
     }
   }
 
@@ -128,5 +130,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 3
+  },
+  rightButton: {
+    color: Colors.titleColor,
+    backgroundColor: Colors.primary,
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 16
   }
 });
