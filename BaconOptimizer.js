@@ -26,3 +26,12 @@ export class BaconOptimizer {
     return lastBit.duration + lastBit.bsi * delta;
   }
 }
+
+export class StaticOptimizer {
+  constructor(seconds) {
+    this._seconds = seconds;
+  }
+  optimize(bacon_bits, bops) {
+    return this._seconds;
+  }
+}
