@@ -75,7 +75,8 @@ export class BaconTimerScreen extends Component {
 
     handleBaconBits(bacon_bits) {
       let duration = this.baconOptimizer.optimize(bacon_bits);
-      this.setState({duration: duration, timeleft: duration});
+      StateVars.duration = duration;
+      this.setState({timeleft: duration});
     }
 
     getPigImageRotationStyle(){
@@ -136,7 +137,7 @@ export class BaconTimerScreen extends Component {
     }
 
     degreeRotation() {
-        var rotation = Math.floor(180 * ((StateVars.duration - this.state.timeleft) / StateVars.duration));
+        var rotation = 180 * ((StateVars.duration - this.state.timeleft) / StateVars.duration);
         return rotation + "deg";
     }
 
