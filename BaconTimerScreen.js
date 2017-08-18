@@ -43,8 +43,8 @@ export class BaconTimerScreen extends Component {
 
     constructor(props) {
       super(props);
-      this.baconOptimizer = new StaticOptimizer(10);
-      //this.baconOptimizer = new BaconOptimizer();
+      //this.baconOptimizer = new StaticOptimizer(10);
+      this.baconOptimizer = new BaconOptimizer();
       this.state = {
         timeleft: StateVars.duration,
         timer: null,
