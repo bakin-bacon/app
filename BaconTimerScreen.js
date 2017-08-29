@@ -54,46 +54,6 @@ export class BaconTimerScreen extends Component {
       });
     }
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style={styles.timerText}>{this.timeLeft().format("m:ss", {trim: false})}</Text>
-                <Image
-                    style={{
-                        height: 156,
-                        width: 156,
-                        transform: [{rotate: this.pigRotation()}]
-                    }}
-                    source={require('./images/pig.png')}
-                />
-                <TouchableOpacity
-                    style={ styles.controlContainer }
-                    onPress={this.toggleRunning.bind(this)}
-                    >
-                    <Image
-                        style={styles.controlimage}
-                        source={this.state.running
-                            ? require('./images/bacon_reset.png')
-                            : require('./images/bacon_play.png')}
-                    />
-                </TouchableOpacity>
-            </View>
-        );
-    }
-
-    alertUser() {
-        Vibration.vibrate([0, 200, 400, 600, 0, 100, 300, 500, 0, 200, 400, 500, 0, 100, 300, 500, 0, 200, 400, 600]);
-        Alert.alert('Finished',
-            'Go eat your perfect bacon.',
-            [
-                {text: 'OK', onPress: () => {
-                    Vibration.cancel();
-                }}
-            ],
-            { cancelable: false }
-        )
-    }
-
     startTimer() {
         this._interval = setInterval(() => {
             if (this.isTimerExpired()) {
@@ -115,15 +75,8 @@ export class BaconTimerScreen extends Component {
             startTime: null,
         });
     }
-    toggleRunning() {
-        if (this.state.running) {
-            this.stopTimer();
-        } else {
-            this.startTimer();
-        }
-    }
 
-    timeLeft() {
+    get timeLeft() {
         if (this.state.running) {
             let timeLeft = moment
                 .duration(this.state.duration)
@@ -137,14 +90,54 @@ export class BaconTimerScreen extends Component {
     }
 
     isTimerExpired() {
-        return this.timeLeft().asMilliseconds() <= 0;
+        return this.timeLeft.asMilliseconds() <= 0;
     }
 
     pigRotation() {
-        var difference = moment.duration(this.state.duration).subtract(this.timeLeft());
+        var difference = moment.duration(this.state.duration).subtract(this.timeLeft);
         var rotation = 180 * difference / this.state.duration;
 
         return rotation + "deg";
+    }
+
+    alertUser() {
+        Vibration.vibrate([0, 200, 400, 600, 0, 100, 300, 500, 0, 200, 400, 500, 0, 100, 300, 500, 0, 200, 400, 600]);
+        Alert.alert('Finished',
+            'Go eat your perfect bacon.',
+            [
+                {text: 'OK', onPress: () => {
+                    Vibration.cancel();
+                }}
+            ],
+            { cancelable: false }
+        )
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.timerText}>{this.timeLeft.format("m:ss", {trim: false})}</Text>
+                <Image
+                    style={{
+                        height: 156,
+                        width: 156,
+                        transform: [{rotate: this.pigRotation()}]
+                    }}
+                    source={require('./images/pig.png')}
+                />
+                <TouchableOpacity
+                    style={ styles.controlContainer }
+                    onPress={() => this.state.running ? this.stopTimer() : this.startTimer()}
+                    >
+                    <Image
+                        style={styles.controlimage}
+                        source={this.state.running
+                            ? require('./images/bacon_reset.png')
+                            : require('./images/bacon_play.png')}
+                    />
+                </TouchableOpacity>
+            </View>
+        );
     }
 }
 
