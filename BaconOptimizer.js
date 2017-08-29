@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 export class BaconOptimizer {
   constructor() {
   }
@@ -23,15 +25,15 @@ export class BaconOptimizer {
     let delta = initial_delta / Math.pow(2, directionChanges);
     let lastBit = bits.pop();
 
-    return lastBit.duration + lastBit.bsi * delta;
+    return moment.duration(lastBit.duration + lastBit.bsi * delta, "seconds");
   }
 }
 
 export class StaticOptimizer {
-  constructor(seconds) {
-    this._seconds = seconds;
+  constructor(duration) {
+    this._duration = duration;
   }
   optimize(bacon_bits, bops) {
-    return this._seconds;
+    return this._duration;
   }
 }

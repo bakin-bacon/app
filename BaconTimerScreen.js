@@ -17,9 +17,8 @@ import { BaconOptimizer, StaticOptimizer } from './BaconOptimizer';
 import { PushService } from './push/PushService';
 import { Notifications } from 'expo';
 
-const defaultDuration = 10;
-
-var StateVars = { duration: defaultDuration };
+var moment = require('moment');
+require("moment-duration-format");
 
 export class BaconTimerScreen extends Component {
     static navigationOptions = {
@@ -43,30 +42,28 @@ export class BaconTimerScreen extends Component {
 
     constructor(props) {
       super(props);
-      //this.baconOptimizer = new StaticOptimizer(10);
+      //this.baconOptimizer = new StaticOptimizer(moment.duration(20, "seconds"));
       this.baconOptimizer = new BaconOptimizer();
       this.state = {
-        timeleft: StateVars.duration,
-        timer: null,
-        running: false
+          duration: this.baconOptimizer.optimize([], null),
+          startTime: null,
+          running: false
       };
-      this.spinValue = new Animated.Value(0);
       this.api = new BakinBaconApi();
       this.api.getBaconBits(this.handleBaconBits.bind(this));
     }
 
     render() {
-        const onPressControl = this.onPressControl.bind(this);
         return (
             <View style={styles.container}>
-                <Text style={styles.timerText}>{this.timeLeft()}</Text>
+                <Text style={styles.timerText}>{this.timeLeft().format("m:ss", {trim: false})}</Text>
                 <Image
                     style={ this.getPigImageRotationStyle() }
                     source={require('./images/pig.png')}
                 />
                 <TouchableOpacity
                     style={ styles.controlContainer }
-                    onPress={onPressControl}
+                    onPress={this.toggleRunning.bind(this)}
                     >
                     {this.controlImage()}
                 </TouchableOpacity>
@@ -75,17 +72,14 @@ export class BaconTimerScreen extends Component {
     }
 
     handleBaconBits(bacon_bits) {
-      let duration = this.baconOptimizer.optimize(bacon_bits);
-      StateVars.duration = duration;
-      this.setState({timeleft: duration});
+      this.setState({duration: this.baconOptimizer.optimize(bacon_bits)});
     }
 
     getPigImageRotationStyle(){
-        var rotation = this.degreeRotation();
         return {
             height:156,
             width: 156,
-            transform: [{ rotate: rotation}]
+            transform: [{rotate: this.degreeRotation()}]
         };
      }
 
@@ -102,60 +96,68 @@ export class BaconTimerScreen extends Component {
         )
     }
 
-    setTimer() {
-        if( this.state.running) {
-            this._interval = setInterval(() => {
-                if(this.state.timeleft > 0 ) {
-                    this.setState({timeleft: this.state.timeleft - 1});
-                }
-                else
-                {
-                    clearInterval(this._interval);
-                    this.alertUser();
-                    this.api.postBaconMade(() => {console.log('we made bacon!')});
-                }
-            }, 1000);
+    startTimer() {
+        this._interval = setInterval(() => {
+            if (this.isTimerExpired()) {
+                this.stopTimer();
+                this.alertUser();
+            }
+            // this gets the ball rolling, or keeps it rolling
+            this.setState({
+                running: true,
+                startTime: this.state.startTime || moment()
+            });
+        }, 1000);
+    }
+
+    stopTimer() {
+        clearInterval(this._interval);
+        this.setState({
+            running: false,
+            startTime: null,
+        });
+    }
+    toggleRunning() {
+        if (this.state.running) {
+            this.stopTimer();
         } else {
-            clearInterval(this._interval);
-            this.setState({timeleft: StateVars.duration});
+            this.startTimer();
         }
     }
 
-    async toggleRunning() {
-        await this.setState({running: !this.state.running});
-        this.setTimer();
-    }
-
-    onPressControl() {
-        this.toggleRunning();
-    }
-
     timeLeft() {
-        var minutes = Math.floor(this.state.timeleft / 60);
-        var seconds = this.state.timeleft % 60;
-        return (minutes == 0 ? "0" : minutes) + ":" + (seconds == 0 ? "00" : (seconds < 10) ? "0" + seconds : seconds);
+        if (this.state.running) {
+            let timeLeft = moment
+                .duration(this.state.duration)
+                .subtract(moment().diff(this.state.startTime));
+            
+            return timeLeft.asMilliseconds <= 0
+                ? moment.duration(0)
+                : timeLeft;
+        }
+        return moment.duration(this.state.duration);
+    }
+
+    isTimerExpired() {
+        return this.timeLeft().asMilliseconds() <= 0;
     }
 
     degreeRotation() {
-        var rotation = 180 * ((StateVars.duration - this.state.timeleft) / StateVars.duration);
+        var difference = moment.duration(this.state.duration).subtract(this.timeLeft());
+        var rotation = 180 * difference / this.state.duration;
+
         return rotation + "deg";
     }
 
     controlImage() {
-        if (this.state.running) {
-            return (
-                    <Image
-                        style={ styles.controlImage }
-                        source={require('./images/bacon_reset.png')}
-                    />
-                )
-        }
         return (
             <Image
-                    style={ styles.controlImage }
-                    source={require('./images/bacon_play.png')}
-                />
-            )
+                style={styles.controlimage}
+                source={this.state.running
+                    ? require('./images/bacon_reset.png')
+                    : require('./images/bacon_play.png')}
+            />
+        );
     }
 }
 
@@ -198,5 +200,3 @@ const styles = StyleSheet.create({
     borderRadius: 48
   },
 });
-
-exports.StateVars = StateVars;
