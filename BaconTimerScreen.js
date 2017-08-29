@@ -42,15 +42,16 @@ export class BaconTimerScreen extends Component {
 
     constructor(props) {
       super(props);
-      //this.baconOptimizer = new StaticOptimizer(moment.duration(20, "seconds"));
-      this.baconOptimizer = new BaconOptimizer();
+      //let baconOptimizer = new StaticOptimizer(moment.duration(20, "seconds"));
+      let baconOptimizer = new BaconOptimizer();
       this.state = {
-          duration: this.baconOptimizer.optimize([], null),
+          duration: baconOptimizer.optimize([], null),
           startTime: null,
           running: false
       };
-      this.api = new BakinBaconApi();
-      this.api.getBaconBits(this.handleBaconBits.bind(this));
+      new BakinBaconApi().getBaconBits(bacon_bits => {
+        this.setState({duration: baconOptimizer.optimize(bacon_bits)})
+      });
     }
 
     render() {
@@ -58,30 +59,27 @@ export class BaconTimerScreen extends Component {
             <View style={styles.container}>
                 <Text style={styles.timerText}>{this.timeLeft().format("m:ss", {trim: false})}</Text>
                 <Image
-                    style={ this.getPigImageRotationStyle() }
+                    style={{
+                        height: 156,
+                        width: 156,
+                        transform: [{rotate: this.pigRotation()}]
+                    }}
                     source={require('./images/pig.png')}
                 />
                 <TouchableOpacity
                     style={ styles.controlContainer }
                     onPress={this.toggleRunning.bind(this)}
                     >
-                    {this.controlImage()}
+                    <Image
+                        style={styles.controlimage}
+                        source={this.state.running
+                            ? require('./images/bacon_reset.png')
+                            : require('./images/bacon_play.png')}
+                    />
                 </TouchableOpacity>
             </View>
         );
     }
-
-    handleBaconBits(bacon_bits) {
-      this.setState({duration: this.baconOptimizer.optimize(bacon_bits)});
-    }
-
-    getPigImageRotationStyle(){
-        return {
-            height:156,
-            width: 156,
-            transform: [{rotate: this.degreeRotation()}]
-        };
-     }
 
     alertUser() {
         Vibration.vibrate([0, 200, 400, 600, 0, 100, 300, 500, 0, 200, 400, 500, 0, 100, 300, 500, 0, 200, 400, 600]);
@@ -142,22 +140,11 @@ export class BaconTimerScreen extends Component {
         return this.timeLeft().asMilliseconds() <= 0;
     }
 
-    degreeRotation() {
+    pigRotation() {
         var difference = moment.duration(this.state.duration).subtract(this.timeLeft());
         var rotation = 180 * difference / this.state.duration;
 
         return rotation + "deg";
-    }
-
-    controlImage() {
-        return (
-            <Image
-                style={styles.controlimage}
-                source={this.state.running
-                    ? require('./images/bacon_reset.png')
-                    : require('./images/bacon_play.png')}
-            />
-        );
     }
 }
 
