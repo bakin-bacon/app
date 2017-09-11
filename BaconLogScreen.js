@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import moment from 'moment';
 import * as Colors from './Colors';
-import { BakinBaconApi } from './BakinBaconApi';
+import { BakinBaconApi } from './api/BakinBaconApi';
 
 export class BaconLogScreen extends Component {
     static navigationOptions = {

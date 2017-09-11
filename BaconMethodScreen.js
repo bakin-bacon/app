@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, StatusBar, Text, View, ScrollView, Image, Button, Alert } from 'react-native';
 import * as Colors from './Colors';
-import { BakinBaconApi } from './BakinBaconApi';
 
 const styles = StyleSheet.create({
   masterContainer: {

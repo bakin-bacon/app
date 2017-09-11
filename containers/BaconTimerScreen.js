@@ -13,11 +13,11 @@ import {
   Alert
 } from 'react-native';
 import { Notifications } from 'expo';
+import { PushService } from '../api/PushService';
 
-import { fetchBaconBits, timerStarted, timerStopped } from './actions';
-import TimerSelectors from './selectors/timerSelectors'
-import { PushService } from './push/PushService';
-import * as Colors from './Colors';
+import { fetchBaconBits, timerStarted, timerStopped } from '../actions';
+import TimerSelectors from '../selectors/timerSelectors'
+import * as Colors from '../Colors';
 
 var moment = require('moment');
 require("moment-duration-format");
@@ -72,7 +72,7 @@ class BaconTimerScreen extends React.Component {
                         width: 156,
                         transform: [{rotate: this.props.pigRotation}]
                     }}
-                    source={require('./images/pig.png')}
+                    source={require('../images/pig.png')}
                 />
                 <TouchableOpacity
                     style={ styles.controlContainer }
@@ -81,8 +81,8 @@ class BaconTimerScreen extends React.Component {
                     <Image
                         style={styles.controlimage}
                         source={this.props.running
-                            ? require('./images/bacon_reset.png')
-                            : require('./images/bacon_play.png')}
+                            ? require('../images/bacon_reset.png')
+                            : require('../images/bacon_play.png')}
                     />
                 </TouchableOpacity>
             </View>

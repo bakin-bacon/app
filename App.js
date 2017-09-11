@@ -3,12 +3,13 @@ import { Provider, connect } from 'react-redux';
 import { Platform, StatusBar } from 'react-native';
 import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
 import * as Colors from './Colors';
-import BaconTimerScreen from './BaconTimerScreen';
+import { combineReducers } from 'redux';
+import getStore from './store';
+
+import { BaconTimerScreen } from './containers';
 import { BaconMethodScreen } from './BaconMethodScreen';
 import { BaconLogScreen } from './BaconLogScreen';
 import { BaconFeedbackScreen } from './BaconFeedbackScreen';
-import { combineReducers } from 'redux';
-import getStore from './store';
 
 const MainScreenNavigator = TabNavigator(
     {

@@ -1,9 +1,7 @@
 import React from 'react';
 import { StyleSheet, Dimensions, StatusBar, Text, ScrollView, View, Image, Button, TouchableOpacity, Alert } from 'react-native';
 import * as Colors from './Colors';
-import { BakinBaconApi } from './BakinBaconApi';
-import { BaconTimerScreen } from './BaconTimerScreen';
-import App from './App';
+import { BakinBaconApi } from './api/BakinBaconApi';
 
 export class BaconFeedbackScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {

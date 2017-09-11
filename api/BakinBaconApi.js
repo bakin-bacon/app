@@ -1,12 +1,10 @@
 import React, { AsyncStorage, Alert } from 'react-native';
-import { PushService } from './push/PushService';
+import { PushService } from './PushService';
 
 var SERVER_URL = 'https://api.bakinbacon.net';
 var BACON_URL = SERVER_URL + '/v1/bacon-bits';
 var API_KEY = 'jaRgGN99BY6n1oMSBopLY2M4TlKLG23K172BPKDG';
 var USER_ID_STORAGE_KEY = 'user_id';
-
-var timerScreen = require('./BaconTimerScreen');
 
 export class BakinBaconApi
 {
@@ -39,16 +37,22 @@ export class BakinBaconApi
                 },
                 body: JSON.stringify({
                     user_id: this.userId,
-                    duration: timerScreen.StateVars.duration,
+                    duration: baconBit.duration,
                     timestamp: baconBit.timestamp,
                     bsi: baconBit.bsi
                 })
             })
-            .then((response) => response.json())
+            .then((response) => {
+                if (response.ok) {
+                    return response.json()
+                }
+                throw new Error("baconbit post failed " + response)
+            })
             .then((responseData) => {
-              console.log('POST response', responseData);
                 if(responseData['🥓']){
                     onBaconing();
+                } else {
+                    console.log("bacon bit post failed " + responseData);
                 }
             })
             .done();
