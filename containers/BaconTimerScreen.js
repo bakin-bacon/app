@@ -22,6 +22,46 @@ import * as Colors from '../Colors';
 var moment = require('moment');
 require("moment-duration-format");
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: Colors.backgroundColor,
+        alignItems: 'center'
+    },
+    timerText: {
+        fontSize: 72,
+        textAlign: 'center',
+        margin: 10,
+        marginBottom: 20,
+        marginTop: 30,
+    },
+    button: {
+        height: 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    imageContainer: {
+        height: 156,
+        width: 156,
+        borderRadius: 64,
+    },
+    pig: {
+        height: 156,
+        width: 156
+    },
+    controlContainer: {
+        height: 96,
+        width: 96,
+        borderRadius: 48,
+        marginTop: 40,
+    },
+    controlImage: {
+        height: 96,
+        width: 96,
+        borderRadius: 48
+    },
+});
+
 class BaconTimerScreen extends React.Component {
     static navigationOptions = {
         title: "Bakin' Bacon Timer",
@@ -90,45 +130,7 @@ class BaconTimerScreen extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.backgroundColor,
-    alignItems: 'center'
-  },
-  timerText: {
-      fontSize: 72,
-      textAlign: 'center',
-      margin: 10,
-      marginBottom: 20,
-      marginTop: 30,
-  },
-  button: {
-      height: 60,
-      justifyContent: 'center',
-      alignItems: 'center',
-  },
-  imageContainer: {
-    height:156,
-    width: 156,
-    borderRadius: 64,
-  },
-  pig: {
-    height:156,
-    width: 156
-  },
-  controlContainer: {
-    height:96,
-    width: 96,
-    borderRadius: 48,
-    marginTop: 40,
-  },
-  controlImage: {
-    height:96,
-    width: 96,
-    borderRadius: 48
-  },
-});
+
 
 const mapStateToProps = state => ({
     // TODO: TRE - why do I have to say "state.timer" here?

@@ -24,6 +24,7 @@ export class BakinBaconApi
       }
     }
 
+    // TODO: move this toward Promise style API
     async postBaconBit(baconBit, onBaconing) {
       await this.getUserId();
 
