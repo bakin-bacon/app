@@ -1,17 +1,21 @@
 import React from 'react';
+import { Provider, connect } from 'react-redux';
 import { Platform, StatusBar } from 'react-native';
-import { StackNavigator, TabNavigator } from 'react-navigation';
+import { StackNavigator, TabNavigator, addNavigationHelpers } from 'react-navigation';
 import * as Colors from './Colors';
-import { BaconTimerScreen } from './BaconTimerScreen';
+import BaconTimerScreen from './BaconTimerScreen';
 import { BaconMethodScreen } from './BaconMethodScreen';
 import { BaconLogScreen } from './BaconLogScreen';
 import { BaconFeedbackScreen } from './BaconFeedbackScreen';
+import { combineReducers } from 'redux';
+import getStore from './store';
 
 const MainScreenNavigator = TabNavigator(
     {
         Timer: { screen: BaconTimerScreen },
-        Log: { screen: BaconLogScreen },
-        Method: { screen: BaconMethodScreen },
+        // Log: { screen: BaconLogScreen },
+        // Method: { screen: BaconMethodScreen },
+        // Feedback: { screen: BaconFeedbackScreen }
     },
     {
         initialRouteName: 'Timer',
@@ -20,20 +24,49 @@ const MainScreenNavigator = TabNavigator(
             style: {
                 backgroundColor: Colors.secondary
             }
-        }
+        },
+        cardStyle: { paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight },
     }
 )
 
-const App = StackNavigator(
-    {
-        Home: { screen: MainScreenNavigator },
-        Feedback: { screen: BaconFeedbackScreen }
-    },
-    {
-        cardStyle: {
-            paddingTop: Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
-        },
-    }
-);
+const AppNavigator = MainScreenNavigator;
 
-export default App;
+const initialAction = AppNavigator.router.getActionForPathAndParams('Timer')
+const initialState = AppNavigator.router.getStateForAction(initialAction);
+const navReducer = (state = initialState, action) => {
+    const nextState = AppNavigator.router.getStateForAction(action, state);
+
+    return nextState || state;
+};
+
+const appReducer = combineReducers({
+    nav: navReducer,
+    timer: require('./reducers/timerReducers')
+})
+
+class App extends React.Component {
+    render() {
+        return (
+            <AppNavigator navigation={addNavigationHelpers({
+                dispatch: this.props.dispatch,
+                state: this.props.nav,
+            })} />
+        )
+    }
+}
+
+const mapStateToProps = (state) => ({
+    nav: state.nav
+})
+
+const AppWithNavigationState = connect(mapStateToProps)(App);
+
+export default class Root extends React.Component {
+    render() {
+        return (
+            <Provider store={getStore(navReducer)}>
+                <AppWithNavigationState />
+            </Provider>
+        );
+    }
+}

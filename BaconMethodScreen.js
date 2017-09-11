@@ -68,9 +68,6 @@ export class BaconMethodScreen extends React.Component {
       const tipsTitle = "Tips: ";
       const tipsText = "You don’t need to cover the pan, it won’t mess up your oven. Line the pan with aluminum foil or Silpat for easier cleanup. Don’t use a baking rack to \"keep the bacon out of the grease.\" Instead, put the bacon onto a paper towel-lined plate when it's done."
 
-      //var api = new BakinBaconApi();
-      //api.postBaconBit({duration: 1200, timestamp: new Date().toISOString(), bsi: -1}, () => api.getBaconBits(this.onBaconGot));
-
       return (
         <ScrollView style={styles.masterContainer}>
           <View style={styles.textContainer}>
