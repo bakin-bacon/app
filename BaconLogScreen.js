@@ -12,8 +12,8 @@ import { BakinBaconApi } from './api/BakinBaconApi';
 
 export class BaconLogScreen extends Component {
     static navigationOptions = {
-        title: "My 🥓 Log",
-        tabBarLabel: "🥓Log",
+        title: "🥓 Log",
+        tabBarLabel: "🥓 Log",
         headerStyle: {backgroundColor: Colors.primary },
         headerTitleStyle: { color: Colors.titleColor },
         headerLeft: null

@@ -41,13 +41,7 @@ const styles = StyleSheet.create({
 export class BaconMethodScreen extends React.Component {
     static navigationOptions = {
         title: 'The Bacon Method',
-        tabBarLabel: 'Method',
-        tabBarIcon: ({ tintColor }) => (
-              <Image
-                source={require('./images/icon-alarm.png')}
-                style={[styles.icon, {tintColor: tintColor}]}
-              />
-            ),
+        tabBarLabel: '🥓 Method',
         headerStyle: {backgroundColor: Colors.primary },
         headerTitleStyle: { color: Colors.titleColor },
         headerLeft: null

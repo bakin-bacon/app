@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 class BaconTimerScreen extends React.Component {
     static navigationOptions = {
         title: "Bakin' Bacon Timer",
-        tabBarLabel: 'Timer',
+        tabBarLabel: '🥓 Timer',
         headerStyle: {backgroundColor: Colors.primary },
         headerTitleStyle: { color: Colors.titleColor },
         headerLeft: null
@@ -129,8 +129,6 @@ class BaconTimerScreen extends React.Component {
         );
     }
 }
-
-
 
 const mapStateToProps = state => ({
     // TODO: TRE - why do I have to say "state.timer" here?
