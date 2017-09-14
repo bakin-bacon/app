@@ -9,8 +9,6 @@ import {
   Easing,
   Animated,
   Image,
-  Vibration,
-  Alert
 } from 'react-native';
 import { Notifications } from 'expo';
 import { PushService } from '../api/PushService';
@@ -87,19 +85,6 @@ class BaconTimerScreen extends React.Component {
 
     stopTimer() {
       this.props.dispatch(timerStopped());
-    }
-
-    alertUser() {
-        Vibration.vibrate([0, 200, 400, 600, 0, 100, 300, 500, 0, 200, 400, 500, 0, 100, 300, 500, 0, 200, 400, 600]);
-        Alert.alert('Finished',
-            'Go eat your perfect bacon.',
-            [
-                {text: 'OK', onPress: () => {
-                    Vibration.cancel();
-                }}
-            ],
-            { cancelable: false }
-        )
     }
 
     render() {

@@ -1,3 +1,4 @@
+import { Alert, Vibration } from 'react-native'
 import { ActionType } from './actionTypes';
 import TimerSelectors from '../selectors/timerSelectors'
 import { BakinBaconApi } from '../api/BakinBaconApi'
@@ -10,6 +11,7 @@ function fetchSucceeded(bacon_bits) {
     payload: bacon_bits
   }
 }
+
 
 function fetchBaconBits() {
   return (dispatch) => {
@@ -39,9 +41,25 @@ function timerExpired(duration, startTime) {
   // TODO: turn this into a promise style API call
   _api.postBaconBit(baconBit, () => console.log('Feedback post succeeded'));
 
+  alertUser();
+
   return {
     type: ActionType.TIMER_EXPIRED,
   }
+}
+function alertUser() {
+  Vibration.vibrate([0, 200, 400, 600, 0, 100, 300, 500, 0, 200, 400, 500, 0, 100, 300, 500, 0, 200, 400, 600]);
+  Alert.alert('Finished',
+    'Go eat your perfect bacon.',
+    [
+      {
+        text: 'OK', onPress: () => {
+          Vibration.cancel();
+        }
+      }
+    ],
+    { cancelable: false }
+  )
 }
 
 function timerStarted() {
