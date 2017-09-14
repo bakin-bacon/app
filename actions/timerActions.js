@@ -17,14 +17,9 @@ function fetchBaconBits() {
   return (dispatch) => {
     dispatch(fetchSucceeded([]))
     // use the api to go get the data, and then dispatch succeded with data, or failed
-    // new BakinBaconApi().getBaconBits(bacon_bits => {
-    //   dispatch(fetchSucceeded(bacon_bits))
-    //   //this.setState({duration: baconOptimizer.optimize(bacon_bits)})
-    // })
-    // return api
-    //   .logIn(username, password)
-    //   .then(user => dispatch(loggedIn(user)))
-    //   .catch(_ => dispatch(loginFailed('Invalid login credentials')));
+    new BakinBaconApi().getBaconBits(bacon_bits => {
+      dispatch(fetchSucceeded(bacon_bits))
+    })
   };
 }
 
@@ -79,16 +74,17 @@ function timerStarted() {
   };
 }
 
-export function timerTicked(dispatch, state) {
+function timerTicked(dispatch, state) {
   return {
     type: ActionType.TIMER_TICKED,
   }
 }
-export function timerRestarted() {
+function timerRestarted() {
+  clearInterval(this._interval);
   return {
     type: ActionType.TIMER_RESTARTED,
 
   }
 }
 
-module.exports = {fetchBaconBits, timerStarted, timerTicked}
+module.exports = {fetchBaconBits, timerStarted, timerRestarted, timerTicked}

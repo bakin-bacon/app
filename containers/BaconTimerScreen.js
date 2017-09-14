@@ -13,7 +13,7 @@ import {
 import { Notifications } from 'expo';
 import { PushService } from '../api/PushService';
 
-import { fetchBaconBits, timerStarted, timerStopped } from '../actions';
+import { fetchBaconBits, timerStarted, timerRestarted } from '../actions';
 import TimerSelectors from '../selectors/timerSelectors'
 import * as Colors from '../Colors';
 
@@ -84,7 +84,7 @@ class BaconTimerScreen extends React.Component {
     }
 
     stopTimer() {
-      this.props.dispatch(timerStopped());
+      this.props.dispatch(timerRestarted());
     }
 
     render() {

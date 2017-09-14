@@ -28,6 +28,11 @@ function timer(state = initialState, action) {
       return Object.assign({}, state, {
         duration: _optimizer.optimize(action.payload)
       })
+    case ActionType.TIMER_RESTARTED:
+      return Object.assign({}, state, {
+        running: false,
+        startTime: null,
+      })
     default:
       return state;
   }
